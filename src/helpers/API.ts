@@ -2,9 +2,9 @@ import axios from "axios";
 
 const api: string = "https://swapi-graphql.netlify.app/.netlify/functions/index";
 
-export const getAllFilms = async (totalData: number) => {
+export const getAllFilms = async () => {
   const query: string = `query Film {
-    allFilms (first: ${totalData}) {
+    allFilms {
         totalCount
         films {
             title
@@ -41,9 +41,9 @@ export const getFilmDetails = async (id: string) => {
   return result.data;
 };
 
-export const getAllCharacters = async (totalData: number) => {
+export const getAllCharacters = async () => {
   const query: string = `query AllPeople {
-    allPeople (first: ${totalData}) {
+    allPeople {
         totalCount
         people {
             name

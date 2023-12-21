@@ -7,18 +7,39 @@ export default function Page() {
   const [films, setFilms] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [key, setKey] = useState("");
 
   useEffect(() => {
     async function getData() {
-      const totalData: number = page * 6;
-      const result = await getAllFilms(totalData);
-      setFilms(result.data.allFilms.films);
-      setLoading(false);
+      const result = await getAllFilms();
+      localStorage.setItem("filmsData", JSON.stringify(result.data.allFilms.films));
+      setFilms(result.data.allFilms.films.slice(0, page * 6));
     }
+    getData();
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("filmsData")) {
+      const data: string = localStorage.getItem("filmsData") || "";
+      setTimeout(() => {
+        setFilms(
+          JSON.parse(data)
+            .filter((val: any, idx: number) => val.title.toLowerCase().includes(key.toLowerCase()))
+            .slice(0, page * 6)
+        );
+        setLoading(false);
+      }, 500);
+    }
+  }, [page, key]);
+
+  const handleSearch = (e: any) => {
     setTimeout(() => {
-      getData();
+      if (e.target.value.length >= 2 || e.target.value === "") {
+        setKey(e.target.value);
+        setPage(1);
+      }
     }, 500);
-  }, [page]);
+  };
 
   const handleScroll = () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
@@ -44,6 +65,14 @@ export default function Page() {
             <h1 className="text-5xl lg:text-6xl font-bold drop-shadow-md group-hover:drop-shadow-2xl transition-all duration-500">
               StarWars Films
             </h1>
+          </div>
+          <div className="flex w-full justify-center">
+            <input
+              type="text"
+              className="border-2 border-gray-800 rounded-xl py-2 px-4"
+              placeholder="Type search keyword"
+              onChange={handleSearch}
+            />
           </div>
           <div className="data-container flex p-6 justify-center">
             <div className="grid grid-cols-3 gap-4 min-h-[350px]">

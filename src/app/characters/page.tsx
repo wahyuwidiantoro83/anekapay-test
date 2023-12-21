@@ -7,18 +7,39 @@ export default function Page() {
   const [people, setPeople] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [key, setKey] = useState("");
 
   useEffect(() => {
     async function getData() {
-      const totalData: number = page * 6;
-      const result = await getAllCharacters(totalData);
-      setPeople(result.data.allPeople.people);
-      setLoading(false);
+      const result = await getAllCharacters();
+      localStorage.setItem("charactersData", JSON.stringify(result.data.allPeople.people));
+      setPeople(result.data.allPeople.people.slice(0, page * 6));
     }
+    getData();
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("charactersData")) {
+      const data: string = localStorage.getItem("charactersData") || "";
+      setTimeout(() => {
+        setPeople(
+          JSON.parse(data)
+            .filter((val: any, idx: number) => val.name.toLowerCase().includes(key.toLowerCase()))
+            .slice(0, page * 6)
+        );
+        setLoading(false);
+      }, 500);
+    }
+  }, [page, key]);
+
+  const handleSearch = (e: any) => {
     setTimeout(() => {
-      getData();
+      if (e.target.value.length >= 2 || e.target.value === "") {
+        setKey(e.target.value);
+        setPage(1);
+      }
     }, 500);
-  }, [page]);
+  };
 
   const handleScroll = () => {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
@@ -44,6 +65,14 @@ export default function Page() {
             <h1 className="text-5xl lg:text-6xl font-bold drop-shadow-md group-hover:drop-shadow-2xl transition-all duration-500">
               StarWars Characters
             </h1>
+          </div>
+          <div className="flex w-full justify-center">
+            <input
+              type="text"
+              className="border-2 border-gray-800 rounded-xl py-2 px-4"
+              placeholder="Type search keyword"
+              onChange={handleSearch}
+            />
           </div>
           <div className="data-container flex p-6 justify-center">
             <div className="grid grid-cols-3 gap-4 min-h-[350px]">
