@@ -1,24 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project to fulfils IT Frontend Test at Anekapay.
 
 ## Getting Started
 
-First, run the development server:
+How to clone this project
 
+First copy this repository link
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+https://github.com/wahyuwidiantoro83/anekapay-test.git
 ```
 
+Then clone the repository on your local device, by execute this cli command
+```bash
+git clone https://github.com/wahyuwidiantoro83/anekapay-test.git
+```
+
+After successfuly clone the repo, cd to directory then execute this cli command
+```bash
+npm install
+```
+Congratulation you successfuly clone this repo
+
+To try run the project execute this cli command inside directory
+```bash
+npm run dev
+```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Routes that available in this app:
+```bash
+http://localhost:3000/films //Show film list
+http://localhost:3000/films/details/[characfilmter id] //Show film details
+http://localhost:3000/characters //Show character list
+http://localhost:3000/characters/details/[character id] //Show character details
+```
+If you already satisfied by this repo, you can jump to build this repo, just by executing this cli command
+```bash
+npm run build
+```
 
 ## Learn More
 
