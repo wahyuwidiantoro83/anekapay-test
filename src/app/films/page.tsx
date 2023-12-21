@@ -13,7 +13,7 @@ export default function Page() {
     async function getData() {
       const result = await getAllFilms();
       localStorage.setItem("filmsData", JSON.stringify(result.data.allFilms.films));
-      setFilms(result.data.allFilms.films.slice(0, page * 6));
+      setFilms(result.data.allFilms.films.slice(0, 6));
     }
     getData();
   }, []);
@@ -55,7 +55,7 @@ export default function Page() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [page]);
+  }, [page, handleScroll]);
 
   return (
     <div className="data-container container lg:w-[1024px] m-auto">

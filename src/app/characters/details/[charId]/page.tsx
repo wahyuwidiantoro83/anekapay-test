@@ -2,7 +2,7 @@
 import { getCharacterDetails } from "@/helpers/API";
 import { useEffect, useState } from "react";
 
-export default function characterDetails({ params }: { params: { charId: string } }) {
+export default function CharacterDetails({ params }: { params: { charId: string } }) {
   interface detailCharacter {
     name: string;
     birthYear: string;
@@ -31,7 +31,7 @@ export default function characterDetails({ params }: { params: { charId: string 
       setDetail(result.data.person);
     }
     getDataDetail();
-  }, []);
+  }, [params.charId]);
 
   return (
     <div className="container lg:w-[1024px] m-auto h-screen relative overflow-auto">

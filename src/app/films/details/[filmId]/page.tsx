@@ -3,7 +3,7 @@
 import { getFilmDetails } from "@/helpers/API";
 import { useEffect, useState } from "react";
 
-export default function filmDetails({ params }: { params: { filmId: string } }) {
+export default function FilmDetails({ params }: { params: { filmId: string } }) {
   interface detailFilm {
     title: string;
     openingCrawl: string;
@@ -20,13 +20,13 @@ export default function filmDetails({ params }: { params: { filmId: string } }) 
   });
 
   useEffect(() => {
-    const decoded: string = decodeURIComponent(params.filmId);
+    const decoded: string = decodeURIComponent(params?.filmId);
     async function getDataDetail() {
       const result = await getFilmDetails(decoded);
       setDetail(result.data.film);
     }
     getDataDetail();
-  }, []);
+  }, [params.filmId]);
 
   return (
     <div className="container lg:w-[1024px] m-auto h-screen relative overflow-auto">
