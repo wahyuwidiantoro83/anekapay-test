@@ -8,7 +8,7 @@ export default function Home() {
           <div className="flex max-sm:flex-col p-4 lg:p-0 gap-4 justify-between items-center">
             <div className="p-4 border-2 from-green-100 to-blue-200 backdrop-blur-lg rounded-xl">
               <span className="text-sm font-mono font-semibold">
-                Application to fulfill the IT Frontend test at Anekapay
+                Application created with Next.js using TypeScript
               </span>
             </div>
             <div className="">
